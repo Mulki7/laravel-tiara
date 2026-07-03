@@ -1,0 +1,229 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║           INFORMASI SUBMIT TUGAS PRAKTIKUM                        ║
+║           CRUD Mahasiswa - Laravel                                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+📋 INFORMASI AKSES SISTEM
+═══════════════════════════════════════════════════════════════════
+
+🌐 Link Hosting: [Isi setelah deploy]
+   Contoh: http://yourapp.infinityfreeapp.com
+
+👤 Username/Email: admin@gmail.com
+🔑 Password: admin123
+
+═══════════════════════════════════════════════════════════════════
+✅ FITUR YANG SUDAH DIKERJAKAN
+═══════════════════════════════════════════════════════════════════
+
+1. ✅ CONTROLLER - MahasiswaController.php
+   Lokasi: app/Http/Controllers/MahasiswaController.php
+   
+   Method yang sudah dibuat:
+   ✓ index()    - Menampilkan list mahasiswa
+   ✓ create()   - Form tambah mahasiswa
+   ✓ store()    - Menyimpan data mahasiswa baru
+   ✓ edit()     - Form edit mahasiswa
+   ✓ update()   - Update data mahasiswa
+   ✓ destroy()  - Hapus data mahasiswa
+
+2. ✅ VIEW - Mahasiswa
+   Lokasi: resources/views/mahasiswa/
+   
+   File yang sudah dibuat:
+   ✓ index.blade.php   - Halaman list mahasiswa dengan tombol:
+                         • Tambah Mahasiswa (hijau)
+                         • Edit (kuning)
+                         • Delete (merah)
+   ✓ create.blade.php  - Form tambah mahasiswa
+   ✓ edit.blade.php    - Form edit mahasiswa
+
+3. ✅ FITUR TAMBAHAN
+   ✓ Authentication (Login & Register)
+   ✓ Dashboard
+   ✓ Manajemen User
+   ✓ Responsive Design dengan Bootstrap 5
+   ✓ Validasi Form
+   ✓ Alert Success/Error
+   ✓ Confirm Delete
+   ✓ Database Seeder dengan data sample
+
+═══════════════════════════════════════════════════════════════════
+📊 STRUKTUR DATABASE
+═══════════════════════════════════════════════════════════════════
+
+Tabel: mahasiswas
+┌────────────────┬──────────────┬──────────┐
+│ Column         │ Type         │ Extra    │
+├────────────────┼──────────────┼──────────┤
+│ id             │ bigint       │ PK, AI   │
+│ nim            │ varchar(20)  │ UNIQUE   │
+│ nama           │ varchar(255) │          │
+│ program_studi  │ varchar(255) │          │
+│ created_at     │ timestamp    │          │
+│ updated_at     │ timestamp    │          │
+└────────────────┴──────────────┴──────────┘
+
+Data Sample:
+- NIM: 11524006
+- Nama: kia gorgeous
+- Program Studi: sistem informasi
+
+═══════════════════════════════════════════════════════════════════
+📂 FILE-FILE PENTING
+═══════════════════════════════════════════════════════════════════
+
+Backend (Controller):
+└── app/Http/Controllers/MahasiswaController.php  ✅ LENGKAP
+
+Frontend (View):
+└── resources/views/mahasiswa/
+    ├── index.blade.php   ✅ List + Tombol Aksi
+    ├── create.blade.php  ✅ Form Create
+    └── edit.blade.php    ✅ Form Update
+
+Database:
+├── database/migrations/2026_07_03_061010_create_mahasiswas_table.php
+└── database/seeders/DatabaseSeeder.php
+
+Model:
+└── app/Models/Mahasiswa.php
+
+Routes:
+└── routes/web.php (Resource route untuk mahasiswa)
+
+Layout:
+└── resources/views/layouts/app.blade.php (Bootstrap 5)
+
+═══════════════════════════════════════════════════════════════════
+🎯 CARA MENJALANKAN LOKAL (UNTUK CEK)
+═══════════════════════════════════════════════════════════════════
+
+1. composer install
+2. npm install
+3. php artisan migrate:fresh --seed
+4. npm run build
+5. php artisan serve
+6. Buka: http://127.0.0.1:8000
+7. Login dengan admin@gmail.com / admin123
+8. Test CRUD di menu Mahasiswa
+
+═══════════════════════════════════════════════════════════════════
+🌐 CARA DEPLOY KE HOSTING
+═══════════════════════════════════════════════════════════════════
+
+📖 Baca file: CARA_HOSTING.txt (panduan lengkap step by step)
+
+Ringkasan singkat:
+1. Daftar di https://infinityfree.net
+2. Buat hosting & database
+3. Upload semua file
+4. Pindahkan isi folder public/ ke htdocs/
+5. Edit index.php (path bootstrap)
+6. Setup .env dengan kredensial database
+7. Akses deploy_helper.php untuk setup database
+8. Hapus deploy_helper.php
+9. Test aplikasi
+
+═══════════════════════════════════════════════════════════════════
+📸 SCREENSHOT YANG PERLU DIAMBIL
+═══════════════════════════════════════════════════════════════════
+
+Untuk bukti tugas, ambil screenshot:
+□ 1. Halaman Login
+□ 2. Halaman Dashboard (setelah login)
+□ 3. Halaman Data Mahasiswa (dengan tombol Tambah)
+□ 4. Halaman Form Tambah Mahasiswa
+□ 5. Halaman Form Edit Mahasiswa
+□ 6. Alert sukses setelah tambah/edit/hapus
+□ 7. Halaman Data User
+□ 8. Browser URL bar (menunjukkan link hosting)
+
+═══════════════════════════════════════════════════════════════════
+📦 FILE DOKUMENTASI
+═══════════════════════════════════════════════════════════════════
+
+1. README.md              - Dokumentasi lengkap aplikasi
+2. DEPLOY_GUIDE.md        - Panduan deployment detail
+3. CARA_HOSTING.txt       - Panduan singkat hosting
+4. INFORMASI_PENTING.txt  - Informasi teknis
+5. SUBMIT_INFO.txt        - File ini (info submit tugas)
+
+═══════════════════════════════════════════════════════════════════
+✅ CHECKLIST SEBELUM SUBMIT
+═══════════════════════════════════════════════════════════════════
+
+Kode:
+□ Controller mahasiswa sudah lengkap (create, update, delete)
+□ View mahasiswa sudah lengkap (index, create, edit)
+□ Routing sudah benar
+□ Database migration & seeder sudah ada
+□ Test lokal berfungsi dengan baik
+
+Hosting:
+□ Aplikasi sudah di-deploy ke hosting
+□ Database sudah disetup
+□ Login berhasil
+□ CRUD mahasiswa berfungsi (Create, Read, Update, Delete)
+□ URL hosting sudah dicatat
+
+Dokumentasi:
+□ README.md tersedia
+□ Screenshot aplikasi sudah diambil
+□ Link & kredensial sudah dicatat
+
+═══════════════════════════════════════════════════════════════════
+📝 FORMAT SUBMIT
+═══════════════════════════════════════════════════════════════════
+
+Link Hosting : _________________________________
+Username     : admin@gmail.com
+Password     : admin123
+
+Atau submit dalam bentuk:
+- ZIP file source code
+- Screenshot aplikasi
+- File SUBMIT_INFO.txt ini dengan link diisi
+
+═══════════════════════════════════════════════════════════════════
+🎓 DETAIL PENGERJAAN
+═══════════════════════════════════════════════════════════════════
+
+Tugas: Lengkapi CRUD Mahasiswa
+Target: Tambahkan Create, Update, Delete pada Controller & View
+
+Yang Dikerjakan:
+1. ✅ MahasiswaController.php
+   - Method create() untuk tampilkan form
+   - Method store() untuk simpan data baru (dengan validasi)
+   - Method edit() untuk tampilkan form edit
+   - Method update() untuk update data (dengan validasi)
+   - Method destroy() untuk hapus data
+
+2. ✅ View Mahasiswa
+   - index.blade.php: Tombol Create, Edit, Delete
+   - create.blade.php: Form input mahasiswa baru
+   - edit.blade.php: Form edit mahasiswa existing
+
+3. ✅ Validasi
+   - NIM: required, unique, max 20 karakter
+   - Nama: required, max 255 karakter
+   - Program Studi: required, max 255 karakter
+
+4. ✅ User Experience
+   - Alert success setelah operasi berhasil
+   - Confirm dialog sebelum delete
+   - Error message jika validasi gagal
+   - Tombol back ke list
+   - Responsive design
+
+═══════════════════════════════════════════════════════════════════
+
+SELESAI! 🎉
+
+Project sudah lengkap dan siap untuk di-deploy & di-submit.
+
+Semoga nilai A! 🌟
+
+═══════════════════════════════════════════════════════════════════

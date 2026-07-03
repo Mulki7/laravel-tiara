@@ -1,0 +1,133 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║          APLIKASI CRUD MAHASISWA - LARAVEL                        ║
+║          Informasi Login & Deployment                             ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+📋 INFORMASI LOGIN SISTEM
+═══════════════════════════════════════════════════════════════════
+
+Username/Email : admin@gmail.com
+Password       : admin123
+
+⚠️  PENTING: Segera ganti password setelah login pertama kali!
+
+═══════════════════════════════════════════════════════════════════
+🎯 FITUR APLIKASI
+═══════════════════════════════════════════════════════════════════
+
+✅ Authentication (Login & Register)
+✅ Dashboard
+✅ Manajemen User (View)
+✅ CRUD Mahasiswa:
+   - ➕ Create (Tambah Mahasiswa)
+   - 👁️  Read (Lihat Data Mahasiswa)
+   - ✏️  Update (Edit Data Mahasiswa)
+   - 🗑️  Delete (Hapus Data Mahasiswa)
+✅ Responsive Design (Mobile & Desktop)
+✅ Bootstrap 5 UI
+
+═══════════════════════════════════════════════════════════════════
+🚀 CARA MENJALANKAN LOKAL
+═══════════════════════════════════════════════════════════════════
+
+1. Install Dependencies:
+   composer install
+   npm install
+
+2. Setup Database:
+   php artisan migrate:fresh --seed
+
+3. Build Assets:
+   npm run build
+
+4. Jalankan Server:
+   php artisan serve
+
+5. Buka Browser:
+   http://127.0.0.1:8000
+
+6. Login:
+   Email: admin@gmail.com
+   Password: admin123
+
+═══════════════════════════════════════════════════════════════════
+🌐 CARA DEPLOY KE HOSTING
+═══════════════════════════════════════════════════════════════════
+
+📖 Baca file: DEPLOY_GUIDE.md untuk panduan lengkap
+
+Setelah upload, gunakan deploy_helper.php untuk setup database
+⚠️  Hapus deploy_helper.php setelah selesai!
+
+═══════════════════════════════════════════════════════════════════
+📊 DATABASE STRUCTURE
+═══════════════════════════════════════════════════════════════════
+
+Tabel: mahasiswas
+- id (Primary Key)
+- nim (Unique)
+- nama
+- program_studi
+- created_at
+- updated_at
+
+Tabel: users
+- id (Primary Key)
+- name
+- email (Unique)
+- password
+- created_at
+- updated_at
+
+═══════════════════════════════════════════════════════════════════
+🔗 ROUTES
+═══════════════════════════════════════════════════════════════════
+
+Authentication:
+- GET  /login      → Login page
+- POST /login      → Login process
+- POST /logout     → Logout
+
+Dashboard:
+- GET  /dashboard  → Dashboard page
+
+Mahasiswa CRUD:
+- GET    /mahasiswa              → List semua mahasiswa
+- GET    /mahasiswa/create       → Form tambah mahasiswa
+- POST   /mahasiswa              → Simpan mahasiswa baru
+- GET    /mahasiswa/{id}/edit    → Form edit mahasiswa
+- PUT    /mahasiswa/{id}         → Update mahasiswa
+- DELETE /mahasiswa/{id}         → Hapus mahasiswa
+
+Users:
+- GET  /users      → List semua users
+
+═══════════════════════════════════════════════════════════════════
+⚙️ TEKNOLOGI
+═══════════════════════════════════════════════════════════════════
+
+- Laravel 12
+- PHP 8.2+
+- Bootstrap 5.3
+- MySQL/SQLite
+- Vite
+
+═══════════════════════════════════════════════════════════════════
+📝 CATATAN PENTING
+═══════════════════════════════════════════════════════════════════
+
+1. ⚠️  Ganti password admin setelah login pertama
+2. ⚠️  Hapus deploy_helper.php di production
+3. ⚠️  Set APP_DEBUG=false di production
+4. ⚠️  Set APP_ENV=production di production
+5. ⚠️  Backup database secara berkala
+
+═══════════════════════════════════════════════════════════════════
+
+Selamat menggunakan! 🚀
+
+Dokumentasi lengkap: README.md
+Panduan deploy: DEPLOY_GUIDE.md
+
+═══════════════════════════════════════════════════════════════════

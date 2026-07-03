@@ -1,0 +1,218 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    UPDATE LOG - FIELD TAMBAHAN                    ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+📅 Update: Field Email & Semester ditambahkan ke form mahasiswa
+
+═══════════════════════════════════════════════════════════════════
+✅ PERUBAHAN YANG DILAKUKAN
+═══════════════════════════════════════════════════════════════════
+
+1. ✅ DATABASE
+   - Menambah kolom 'email' (nullable) ke tabel mahasiswas
+   - Menambah kolom 'semester' (integer, default: 1) ke tabel mahasiswas
+
+2. ✅ MODEL
+   - Update Model Mahasiswa dengan fillable: email, semester
+
+3. ✅ CONTROLLER
+   - Update validasi di method store():
+     • email: nullable|email|max:255
+     • semester: required|integer|min:1|max:14
+   - Update validasi di method update():
+     • email: nullable|email|max:255
+     • semester: required|integer|min:1|max:14
+
+4. ✅ VIEW - index.blade.php
+   - Tambah kolom Email di tabel
+   - Tambah kolom Semester di tabel
+   - Update colspan di empty state dari 5 menjadi 7
+
+5. ✅ VIEW - create.blade.php
+   - Tambah input field Email (opsional)
+   - Tambah dropdown Semester (1-14) (required)
+
+6. ✅ VIEW - edit.blade.php
+   - Tambah input field Email (opsional)
+   - Tambah dropdown Semester (1-14) (required)
+
+7. ✅ SEEDER
+   - Update data sample dengan:
+     • Email: kia.gorgeous@student.ac.id
+     • Semester: 5
+
+═══════════════════════════════════════════════════════════════════
+📊 STRUKTUR TABEL MAHASISWAS (UPDATED)
+═══════════════════════════════════════════════════════════════════
+
+┌────────────────┬──────────────┬──────────┬──────────────────┐
+│ Column         │ Type         │ Key      │ Extra            │
+├────────────────┼──────────────┼──────────┼──────────────────┤
+│ id             │ bigint       │ PK       │ AUTO_INCREMENT   │
+│ nim            │ varchar(20)  │ UNIQUE   │                  │
+│ nama           │ varchar(255) │          │                  │
+│ email          │ varchar(255) │          │ NULLABLE ✨ NEW │
+│ program_studi  │ varchar(255) │          │                  │
+│ semester       │ integer      │          │ DEFAULT 1 ✨ NEW│
+│ created_at     │ timestamp    │          │                  │
+│ updated_at     │ timestamp    │          │                  │
+└────────────────┴──────────────┴──────────┴──────────────────┘
+
+Data Sample:
+- NIM: 11524006
+- Nama: kia gorgeous
+- Email: kia.gorgeous@student.ac.id ✨ NEW
+- Program Studi: sistem informasi
+- Semester: 5 ✨ NEW
+
+═══════════════════════════════════════════════════════════════════
+🎯 FITUR FIELD EMAIL
+═══════════════════════════════════════════════════════════════════
+
+✅ Tipe: Text input (email type)
+✅ Validasi: Email format, max 255 karakter
+✅ Required: TIDAK (Opsional)
+✅ Placeholder: "contoh@email.com"
+✅ Helper text: "Opsional - Email mahasiswa"
+
+Contoh valid:
+- student@gmail.com
+- mahasiswa@university.ac.id
+- (kosong/dikosongkan juga valid)
+
+═══════════════════════════════════════════════════════════════════
+🎯 FITUR FIELD SEMESTER
+═══════════════════════════════════════════════════════════════════
+
+✅ Tipe: Dropdown/Select
+✅ Pilihan: Semester 1 sampai Semester 14
+✅ Validasi: Integer, min:1, max:14
+✅ Required: YA (Wajib diisi)
+✅ Default saat create: Harus pilih
+✅ Default saat edit: Nilai semester saat ini
+
+Alasan max 14:
+- S1 (8 semester) + S2 (4 semester) + buffer (2 semester) = 14
+
+═══════════════════════════════════════════════════════════════════
+📸 TAMPILAN SETELAH UPDATE
+═══════════════════════════════════════════════════════════════════
+
+TABLE DATA MAHASISWA:
+┌────┬──────────┬──────────────┬─────────────────────────────┬──────────────────┬──────────┬────────┐
+│ No │ NIM      │ Nama         │ Email                       │ Program Studi    │ Semester │ Aksi   │
+├────┼──────────┼──────────────┼─────────────────────────────┼──────────────────┼──────────┼────────┤
+│ 1  │ 11524006 │ kia gorgeous │ kia.gorgeous@student.ac.id  │ sistem informasi │ 5        │ ✏️ 🗑️  │
+└────┴──────────┴──────────────┴─────────────────────────────┴──────────────────┴──────────┴────────┘
+
+FORM TAMBAH/EDIT:
+┌─────────────────────────────────────┐
+│ NIM: [________] *                   │
+│ Nama: [________] *                  │
+│ Email: [________]                   │
+│      ↑ Opsional - Email mahasiswa   │
+│ Program Studi: [________] *         │
+│ Semester: [Pilih Semester ▼] *      │
+│           ├─ Semester 1             │
+│           ├─ Semester 2             │
+│           ├─ Semester 3             │
+│           └─ ... (hingga 14)        │
+│                                     │
+│ [← Kembali]      [💾 Simpan]       │
+└─────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════
+🔄 CARA UPDATE DATABASE DI HOSTING
+═══════════════════════════════════════════════════════════════════
+
+Jika sudah deploy sebelumnya, jalankan:
+
+1. Via deploy_helper.php:
+   - Upload file migration baru
+   - Akses: yoursite.com/deploy_helper.php
+   - Klik: "Run Migration" (bukan fresh!)
+
+2. Via manual command:
+   - Buat file migrate_only.php di root:
+   
+   <?php
+   require __DIR__.'/vendor/autoload.php';
+   $app = require_once __DIR__.'/bootstrap/app.php';
+   $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+   $kernel->call('migrate', ['--force' => true]);
+   echo 'Migration completed!';
+   
+   - Akses: yoursite.com/migrate_only.php
+   - Hapus file setelah selesai
+
+PENTING: Gunakan 'migrate' bukan 'migrate:fresh' agar data lama tidak hilang!
+
+═══════════════════════════════════════════════════════════════════
+✅ TESTING CHECKLIST
+═══════════════════════════════════════════════════════════════════
+
+Test Create:
+□ Buka form Tambah Mahasiswa
+□ Input semua field termasuk Email & Semester
+□ Klik Simpan
+□ Pastikan data muncul di tabel dengan Email & Semester
+
+Test dengan Email Kosong:
+□ Buka form Tambah Mahasiswa
+□ Kosongkan field Email
+□ Isi field lainnya
+□ Klik Simpan
+□ Pastikan tetap tersimpan (Email opsional)
+
+Test Edit:
+□ Klik tombol Edit pada data mahasiswa
+□ Ubah Email dan Semester
+□ Klik Update
+□ Pastikan perubahan tersimpan
+
+Test Validasi:
+□ Input email format salah (contoh: "bukan-email")
+□ Pastikan muncul error "must be a valid email"
+□ Input semester di luar range (< 1 atau > 14)
+□ Pastikan muncul validasi error
+
+Test Delete:
+□ Data masih bisa dihapus normal
+□ Konfirmasi dialog muncul
+□ Data terhapus dari database
+
+═══════════════════════════════════════════════════════════════════
+📝 MIGRATION FILE
+═══════════════════════════════════════════════════════════════════
+
+File: 2026_07_03_091021_add_email_semester_to_mahasiswas_table.php
+
+Isi migration:
+- UP: Tambah kolom email & semester
+- DOWN: Hapus kolom email & semester (untuk rollback)
+
+═══════════════════════════════════════════════════════════════════
+🎓 ALASAN PENAMBAHAN FIELD
+═══════════════════════════════════════════════════════════════════
+
+1. EMAIL:
+   - Komunikasi dengan mahasiswa
+   - Notifikasi sistem
+   - Reset password (jika ada fitur)
+   - Contact information
+
+2. SEMESTER:
+   - Tracking progress akademik
+   - Filter mahasiswa berdasarkan tingkat
+   - Perencanaan KRS
+   - Statistik mahasiswa per semester
+
+═══════════════════════════════════════════════════════════════════
+
+UPDATE SELESAI! ✅
+
+Database telah di-migrate dengan field baru.
+Semua form sudah diupdate.
+Aplikasi siap digunakan dengan field Email & Semester.
+
+═══════════════════════════════════════════════════════════════════

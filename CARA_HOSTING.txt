@@ -1,0 +1,246 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║     PANDUAN SINGKAT HOSTING LARAVEL KE INFINITYFREE              ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+🌐 HOSTING GRATIS YANG DIREKOMENDASIKAN:
+─────────────────────────────────────────────────────────────────
+
+1. InfinityFree - https://infinityfree.net (PALING MUDAH!)
+2. 000webhost - https://www.000webhost.com
+3. Railway.app - https://railway.app
+
+═══════════════════════════════════════════════════════════════════
+📋 LANGKAH-LANGKAH HOSTING KE INFINITYFREE
+═══════════════════════════════════════════════════════════════════
+
+STEP 1: DAFTAR AKUN
+───────────────────
+1. Kunjungi https://infinityfree.net
+2. Klik "Sign Up" (Daftar Gratis)
+3. Buat akun dengan email Anda
+4. Verifikasi email
+5. Login ke dashboard
+6. Klik "Create Account" untuk buat hosting baru
+7. Pilih subdomain gratis (contoh: myapp.infinityfreeapp.com)
+
+STEP 2: SETUP DATABASE
+──────────────────────
+1. Di Control Panel, klik "MySQL Databases"
+2. Buat database baru:
+   - Database Name: mahasiswa_db
+3. Buat user baru:
+   - Username: (otomatis)
+   - Password: [buat password kuat]
+4. Tambahkan user ke database (Add User to Database)
+5. CATAT INFORMASI INI:
+   ✍️ Database Name: epiz_xxxxx_mahasiswa_db
+   ✍️ Username: epiz_xxxxx
+   ✍️ Password: [password Anda]
+   ✍️ Hostname: sqlxxx.infinityfree.com
+
+STEP 3: UPLOAD FILE
+───────────────────
+1. Di Control Panel, klik "Online File Manager" atau "FTP Details"
+2. Login ke File Manager
+3. Masuk ke folder "htdocs"
+4. HAPUS semua file default yang ada
+5. Upload SEMUA file project Laravel Anda KECUALI:
+   ❌ folder node_modules
+   ❌ folder .git
+   ❌ folder tests
+
+   Cara upload:
+   - ZIP semua file project
+   - Upload file ZIP ke htdocs
+   - Extract di htdocs
+   - Atau gunakan FileZilla FTP
+
+STEP 4: PINDAHKAN FILE PUBLIC
+──────────────────────────────
+1. Di File Manager, buka folder "htdocs"
+2. Buka folder "public"
+3. PINDAHKAN (cut) semua isi folder public ke htdocs
+   (index.php, .htaccess, build/, dll)
+4. Setelah dipindahkan, HAPUS folder "public" yang kosong
+
+Struktur akhir di htdocs:
+htdocs/
+├── index.php         ← dari public
+├── .htaccess         ← dari public
+├── build/            ← dari public
+├── app/              ← dari root
+├── bootstrap/        ← dari root
+├── config/           ← dari root
+├── database/         ← dari root
+├── resources/        ← dari root
+├── routes/           ← dari root
+├── storage/          ← dari root
+├── vendor/           ← dari root
+└── ...
+
+STEP 5: EDIT index.php
+──────────────────────
+1. Buka file htdocs/index.php
+2. Cari baris yang berisi:
+   require __DIR__.'/../bootstrap/app.php';
+   
+3. GANTI menjadi:
+   require __DIR__.'/bootstrap/app.php';
+
+4. Save file
+
+STEP 6: SETUP .env
+──────────────────
+1. Buka htdocs/.env.example
+2. Copy dan rename menjadi .env
+3. Edit file .env, ganti bagian ini:
+
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_URL=http://yourapp.infinityfreeapp.com
+
+   DB_CONNECTION=mysql
+   DB_HOST=sqlxxx.infinityfree.com
+   DB_PORT=3306
+   DB_DATABASE=epiz_xxxxx_mahasiswa_db
+   DB_USERNAME=epiz_xxxxx
+   DB_PASSWORD=password_anda
+
+4. Save file
+
+STEP 7: SET PERMISSION
+──────────────────────
+Klik kanan pada folder ini dan set permission ke 755 atau 775:
+- storage/
+- storage/framework/
+- storage/framework/sessions/
+- storage/framework/views/
+- storage/framework/cache/
+- storage/logs/
+- bootstrap/cache/
+
+STEP 8: JALANKAN DEPLOYMENT
+────────────────────────────
+1. Buka browser
+2. Akses: http://yourapp.infinityfreeapp.com/deploy_helper.php
+3. Klik tombol sesuai urutan:
+   
+   [1] Generate Application Key
+   ↓
+   [3] Run Migration + Seed
+   ↓
+   [5] Build Cache (Production)
+
+4. Tunggu hingga setiap proses selesai
+5. Setelah selesai semua, HAPUS file deploy_helper.php
+
+STEP 9: TEST APLIKASI
+─────────────────────
+1. Buka: http://yourapp.infinityfreeapp.com
+2. Anda akan diarahkan ke halaman login
+3. Login dengan:
+   📧 Email: admin@gmail.com
+   🔑 Password: admin123
+
+4. Test fitur:
+   ✅ Dashboard
+   ✅ Data User
+   ✅ Data Mahasiswa
+   ✅ Tambah Mahasiswa
+   ✅ Edit Mahasiswa
+   ✅ Hapus Mahasiswa
+
+SELESAI! 🎉
+
+═══════════════════════════════════════════════════════════════════
+🚨 TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════
+
+ERROR: 500 Internal Server Error
+─────────────────────────────────
+✅ Cek file .env sudah benar
+✅ Cek APP_KEY sudah di-generate
+✅ Cek permission storage dan bootstrap/cache
+✅ Lihat error di storage/logs/laravel.log
+
+ERROR: Database Connection Failed
+──────────────────────────────────
+✅ Cek DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD di .env
+✅ Pastikan database sudah dibuat
+✅ Pastikan user sudah ditambahkan ke database
+✅ Test koneksi dari cPanel "Remote MySQL"
+
+ERROR: CSS/JS Tidak Load
+─────────────────────────
+✅ Pastikan folder build/ ada di htdocs
+✅ Jalankan npm run build sebelum upload
+✅ Cek path di index.php sudah benar
+
+ERROR: 404 Not Found di Semua Route
+────────────────────────────────────
+✅ Pastikan file .htaccess ada di htdocs (dari public)
+✅ Cek mod_rewrite aktif (biasanya sudah aktif di InfinityFree)
+✅ Clear route cache: php artisan route:clear
+
+Blank Page / White Screen
+──────────────────────────
+✅ Cek storage/logs/laravel.log untuk error detail
+✅ Set APP_DEBUG=true sementara untuk lihat error
+✅ Ingat set kembali APP_DEBUG=false setelah selesai
+
+═══════════════════════════════════════════════════════════════════
+📞 BUTUH BANTUAN?
+═══════════════════════════════════════════════════════════════════
+
+1. Baca file README.md untuk dokumentasi lengkap
+2. Baca file DEPLOY_GUIDE.md untuk panduan detail
+3. Cek Laravel logs di storage/logs/laravel.log
+4. Google error message yang muncul
+5. Forum InfinityFree: https://forum.infinityfree.com
+
+═══════════════════════════════════════════════════════════════════
+✅ CHECKLIST SEBELUM SUBMIT
+═══════════════════════════════════════════════════════════════════
+
+Persiapan Lokal:
+□ composer install sudah dijalankan
+□ npm run build sudah dijalankan
+□ Test lokal berjalan dengan baik
+
+Upload:
+□ Semua file sudah diupload (kecuali node_modules, .git, tests)
+□ Isi folder public sudah dipindah ke htdocs
+□ File index.php sudah diedit (path bootstrap)
+
+Setup:
+□ Database sudah dibuat di hosting
+□ File .env sudah dibuat dan diedit
+□ Permission storage & bootstrap/cache sudah 775
+
+Database:
+□ APP_KEY sudah di-generate
+□ Migration sudah dijalankan
+□ Data sudah di-seed
+
+Finalisasi:
+□ Test login berhasil
+□ Test CRUD mahasiswa berfungsi
+□ Cache production sudah dibuild
+□ deploy_helper.php sudah dihapus
+□ APP_DEBUG=false di .env
+□ APP_ENV=production di .env
+
+SUBMIT:
+□ Link hosting: _________________________
+□ Username: admin@gmail.com
+□ Password: admin123
+
+═══════════════════════════════════════════════════════════════════
+
+💡 TIPS:
+- InfinityFree butuh waktu 30-60 menit untuk aktivasi hosting baru
+- Gunakan FileZilla untuk upload yang lebih cepat
+- Backup database sebelum migration
+- Jangan share password admin yang sebenarnya di tugas!
+
+═══════════════════════════════════════════════════════════════════
